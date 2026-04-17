@@ -4,9 +4,20 @@ import { Link } from 'react-router-dom';
 function Cart({ items, total, onClear, onRemove, onChangeCount }) {
   if (items.length === 0) {
     return (
-      <div className="text-center py-20">
-        <h2 className="text-3xl font-bold mb-5">Корзина пустая 😕</h2>
-        <Link to="/" className="bg-[#282828] text-white px-8 py-3 rounded-full">Назад</Link>
+      <div className="flex flex-col items-center justify-center text-center py-20 max-w-[600px] mx-auto">
+        <h2 className="text-[32px] font-bold mb-[12px]">Корзина пустая 😕</h2>
+        <p className="text-[#777777] text-lg mb-[47px]">
+            Вероятней всего, вы не заказывали ещё пиццу.<br/>
+            Для того, чтобы заказать пиццу, перейди на главную страницу.
+        </p>
+        <img className="w-[300px] mb-10" src="/images/shopping-cart.png" alt="Empty cart" />
+        
+        <Link 
+            to="/" 
+            className="bg-[#282828] text-white px-10 text-[16px] py-3 rounded-full font-bold hover:bg-[#444] transition-colors"
+        >
+            Вернуться назад
+        </Link>
       </div>
     );
   }
@@ -22,38 +33,49 @@ function Cart({ items, total, onClear, onRemove, onChangeCount }) {
             </svg>
             <h2 className="text-3xl font-bold"> Корзина</h2>   
         </div>
-        <button onClick={onClear} className="text-[#b6b6b6] font-[16px] cursor-pointer flex gap-[3px]">
+        <button 
+            onClick={() => {
+                if (window.confirm('Вы действительно хотите очистить корзину?')) {
+                    onClear();
+                }
+            }} 
+            className="text-[#b6b6b6] font-[16px] cursor-pointer flex gap-[3px]"
+        >
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M2.5 5H4.16667H17.5" stroke="#B6B6B6" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
                 <path d="M6.66663 5.00001V3.33334C6.66663 2.89131 6.84222 2.46739 7.15478 2.15483C7.46734 1.84227 7.89127 1.66667 8.33329 1.66667H11.6666C12.1087 1.66667 12.5326 1.84227 12.8451 2.15483C13.1577 2.46739 13.3333 2.89131 13.3333 3.33334V5.00001M15.8333 5.00001V16.6667C15.8333 17.1087 15.6577 17.5326 15.3451 17.8452C15.0326 18.1577 14.6087 18.3333 14.1666 18.3333H5.83329C5.39127 18.3333 4.96734 18.1577 4.65478 17.8452C4.34222 17.5326 4.16663 17.1087 4.16663 16.6667V5.00001H15.8333Z" stroke="#B6B6B6" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
                 <path d="M8.33337 9.16667V14.1667" stroke="#B6B6B6" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
                 <path d="M11.6666 9.16667V14.1667" stroke="#B6B6B6" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
-            Очистить корзину</button>
+            Очистить корзину
+        </button>
       </div>
       {items.map((item, index) => (
         <div key={index} className="flex items-center justify-between py-6 border-t border-[#f4f4f4]">
           <div className="flex items-center gap-4 w-[400px]">
             <img className="w-20 h-20" src={item.img} alt="" />
-            <b className="text-xl">{item.name}</b>
+            <div>
+              <h3 className="text-xl">{item.name}</h3>
+              <p className='text-[#8d8d8d] font-normal text-[18px]'>{item.type} тесто, {item.size} см.</p>
+            </div>
           </div>
           <div className="flex items-center gap-[15px]">
               <button 
-                onClick={() => onChangeCount(item.id, -1)}
+                onClick={() => onChangeCount(item.id, -1, item.type, item.size)}
                 className="w-8 h-8 rounded-full border-2 border-[#fe5f1e] bg-transparent text-[#fe5f1e] text-xl font-bold cursor-pointer hover:bg-[#fe5f1e] hover:text-white transition flex items-center justify-center pb-1"
               >
                 -
               </button>
               <b className="text-[22px]">{item.count || 1}</b>
               <button 
-                onClick={() => onChangeCount(item.id, 1)}
+                onClick={() => onChangeCount(item.id, 1, item.type, item.size)}
                 className="w-8 h-8 rounded-full border-2 border-[#fe5f1e] bg-transparent text-[#fe5f1e] text-xl font-bold cursor-pointer hover:bg-[#fe5f1e] hover:text-white transition flex items-center justify-center pb-1"
               >
                 +
               </button>
             </div>
           <b className="text-xl w-24 text-right">{item.price * item.count} ₽</b>
-          <button onClick={() => onRemove(item.id)} className="text-gray-300 cursor-pointer">
+          <button onClick={() => onRemove(item.id, item.type, item.size)} className="text-gray-300 cursor-pointer">
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="16" cy="16" r="15" fill="white" stroke="#D7D7D7" stroke-width="2" />
                     <path d="M19.7479 17.9557L17.4993 15.7071L19.7479 13.4585C20.1618 13.0446 20.1618 12.3734 19.7479 11.9595C19.334 11.5455 18.6628 11.5455 18.2488 11.9595L16.0002 14.2081L13.7516 11.9595C13.3377 11.5455 12.6665 11.5455 12.2526 11.9595C11.8386 12.3734 11.8386 13.0446 12.2526 13.4585L14.5012 15.7071L12.2526 17.9557C11.8386 18.3696 11.8386 19.0409 12.2526 19.4548C12.6665 19.8687 13.3377 19.8687 13.7516 19.4548L16.0002 17.2062L18.2488 19.4548C18.6628 19.8687 19.334 19.8687 19.7479 19.4548C20.1618 19.0409 20.1618 18.3696 19.7479 17.9557Z" fill="#D0D0D0" />
@@ -62,10 +84,28 @@ function Cart({ items, total, onClear, onRemove, onChangeCount }) {
         </div>
       ))}
       <div className="flex justify-between mt-10">
-        <span>Всего: <b>{items.length} шт.</b></span>
-        <span>Сумма: <b className="text-orange-500">{total} ₽</b></span>
+        <span className='text-[#000000] text-[22px] font-normal'>Всего пицц: <b className='font-bold'>{items.length} шт.</b></span>
+        <span className='text-[22px] text-[#000000] font-normal'>Сумма заказа: <b className="text-[#fe5f1e] font-bold">{total} ₽</b></span>
+      </div>
+      <div className="flex justify-between mt-10">
+        <Link 
+          to="/" 
+          className="flex items-center justify-center gap-2 border-2 border-[#D3D3D3] px-8 py-4 rounded-full text-[#cacaca] text-[16px] font-normal hover:bg-[#D3D3D3] hover:text-white transition cursor-pointer"
+        >
+          <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7 1L1 6L7 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+          Вернуться назад
+        </Link>
+
+        <button 
+          className="bg-[#FE5F1E] text-white text-[16px] px-10 py-4 rounded-full font-bold hover:bg-[#e24a0e] transition cursor-pointer shadow-lg active:scale-95"
+        >
+          Оплатить сейчас
+        </button>
       </div>
     </div>
+    
   );
 }
 

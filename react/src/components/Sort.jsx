@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 
-function Sort() {
+function Sort({ value, onChangeSort }) {
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState(0);
   
-  const sortList = ['популярности', 'цене', 'алфавиту'];
-  const sortName = sortList[selected];
+  const sortList = [
+    { name: 'популярности', sortProperty: 'rating' },
+    { name: 'цене', sortProperty: 'price' },
+    { name: 'алфавиту', sortProperty: 'name' },
+  ];
 
   return (
       <div className='relative'>
@@ -21,25 +23,25 @@ function Sort() {
             </svg>
             <b className='text-sm'>Сортировка по:</b>
             <span className='text-sm text-[#fe5f1e] border-b border-dashed border-[#fe5f1e] ml-1'>
-                {sortName}
+                {value.name}
             </span>
         </div>
 
         {open && (
             <div className='absolute right-0 top-full mt-2 bg-white shadow-xl rounded-xl py-3 w-40 z-50 border border-gray-50'>
                 <ul className='h-[136px] items-center justify-center py-3'>
-                    {sortList.map((name, i) => (
+                    {sortList.map((obj, i) => (
                         <li
                             key={i}
                             onClick={() => {
-                                setSelected(i);
+                                onChangeSort(obj);
                                 setOpen(false);
                             }}
                             className={`h-[38px] px-4 py-[10px] hover:bg-[rgba(254,95,30,0.05)] hover:text-[#fe5f1e] cursor-pointer text-sm ${
-                                selected === i ? 'text-[#fe5f1e] font-bold bg-[rgba(254,95,30,0.05)]' : ''
+                                value.sortProperty === obj.sortProperty ? 'text-[#fe5f1e] font-bold bg-[rgba(254,95,30,0.05)]' : ''
                             }`}
                         >
-                            {name}
+                            {obj.name}
                         </li>
                     ))}
                 </ul>

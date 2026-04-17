@@ -14,7 +14,7 @@ function Header({ totalPrice, totalCount }) {
             </Link>
             <Link to="/cart" className='flex items-center bg-orange-500 hover:bg-orange-600 transition-colors px-6 py-3 rounded-full text-white font-bold gap-4'>
                 <span>{totalPrice} ₽</span>
-                <div className='h-6 bg-white/30'>|</div>
+                <div className='w-px h-6 bg-white/25 mx-4'></div>
                 <div className='flex items-center gap-2'>
                     <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M5.56667 15.5667C6.30305 15.5667 6.9 14.9697 6.9 14.2333C6.9 13.4969 6.30305 12.9 5.56667 12.9C4.83029 12.9 4.23334 13.4969 4.23334 14.2333C4.23334 14.9697 4.83029 15.5667 5.56667 15.5667Z" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
