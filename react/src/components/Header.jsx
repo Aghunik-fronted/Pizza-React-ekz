@@ -6,15 +6,15 @@ function Header({ totalPrice, totalCount }) {
     <header className='border-b border-gray-100 py-10 px-10 m-0'>
         <div className='flex items-center justify-between'>
             <Link to="/" className='flex items-center gap-4'>
-                <img src="/images/logo.png" alt="Pizza log" width="38" />
+                <img src="images/logo.png" alt="Pizza log" width="38" />
                 <div>
                     <h1 className='text-2xl font-extrabold text-[#181818] uppercase leading-none'>React Pizza</h1>
                     <p className='font-normal text-[16px] text-[#7b7b7b]'>самая вкусная пицца во вселенной</p>
                 </div>
             </Link>
-            <Link to="/cart" className='flex items-center bg-orange-500 hover:bg-orange-600 transition-colors px-6 py-3 rounded-full text-white font-bold gap-4'>
+            <Link to="/cart" className='flex items-center bg-[#fe5f1e] hover:bg-orange-600 transition-colors px-6 py-3 rounded-full text-white text-[16px] font-bold gap-4'>
                 <span>{totalPrice} ₽</span>
-                <div className='w-px h-6 bg-white/25 mx-4'></div>
+                <div className='w-px h-6 bg-white/25 px-0 mx-0'></div>
                 <div className='flex items-center gap-2'>
                     <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M5.56667 15.5667C6.30305 15.5667 6.9 14.9697 6.9 14.2333C6.9 13.4969 6.30305 12.9 5.56667 12.9C4.83029 12.9 4.23334 13.4969 4.23334 14.2333C4.23334 14.9697 4.83029 15.5667 5.56667 15.5667Z" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />

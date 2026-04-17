@@ -10,7 +10,7 @@ function Cart({ items, total, onClear, onRemove, onChangeCount }) {
             Вероятней всего, вы не заказывали ещё пиццу.<br/>
             Для того, чтобы заказать пиццу, перейди на главную страницу.
         </p>
-        <img className="w-[300px] mb-10" src="/images/shopping-cart.png" alt="Empty cart" />
+        <img className="w-[300px] mb-10" src="images/shopping-cart.png" alt="Empty cart" />
         
         <Link 
             to="/" 
