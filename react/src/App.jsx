@@ -11,7 +11,7 @@ function App() {
         const saved = localStorage.getItem('cart');
         return saved ? JSON.parse(saved) : [];
     });
-    React.useEffect(() => {
+    useEffect(() => {
         localStorage.setItem('cart', JSON.stringify(cartItems));
     }, [cartItems]);
 
