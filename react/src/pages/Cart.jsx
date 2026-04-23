@@ -1,12 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useCart } from '../context/CartContext'; // Подключаем контекст
+import { useCart } from '../context/CartContext'; 
 
 function Cart() {
-  // Достаем данные и функции напрямую из контекста
   const { items, totalPrice, dispatch } = useCart();
 
-  // Функции-обертки для отправки действий в reducer
   const onClickClear = () => {
     if (window.confirm('Вы действительно хотите очистить корзину?')) {
       dispatch({ type: 'CLEAR_CART' });
@@ -25,7 +23,6 @@ function Cart() {
       dispatch({ type: 'REMOVE_ITEM', payload: item });
   };
 
-  // Суммарное количество всех пицц
   const totalCount = items.reduce((sum, item) => sum + item.count, 0);
 
   if (items.length === 0) {

@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
-import { useCart } from '../context/CartContext'; // Проверьте правильность пути!
+import { useCart } from '../context/CartContext'; 
 
 function Card({ id, name, price, img }) {
-  const { dispatch, items } = useCart(); // Берём данные из контекста
+  const { dispatch, items } = useCart(); 
   const [activeType, setActiveType] = useState(0);
   const [activeSize, setActiveSize] = useState(0);
 
   const typeNames = ['тонкое', 'традиционное'];
-  const sizes = [26, 30, 40]; // Исправлено: добавлены значения
+  const sizes = [26, 30, 40]; 
 
-  // Считаем сколько именно этой пиццы добавлено
   const addedCount = items
     .filter(obj => obj.id === id)
     .reduce((sum, obj) => obj.count + sum, 0);
